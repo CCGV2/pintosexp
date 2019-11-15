@@ -88,6 +88,7 @@ struct thread
     char name[16];                      /* Name (for debugging purposes). */
     uint8_t *stack;                     /* Saved stack pointer. */
     int priority;                       /* Priority. */
+    int64_t ticks_blocked;
     struct list_elem allelem;           /* List element for all threads list. */
 
     /* Shared between thread.c and synch.c. */
@@ -117,6 +118,7 @@ typedef void thread_func (void *aux);
 tid_t thread_create (const char *name, int priority, thread_func *, void *);
 
 void thread_block (void);
+void blocked_thread_check(struct thread *t, void *aux UNUSED);
 void thread_unblock (struct thread *);
 
 struct thread *thread_current (void);
