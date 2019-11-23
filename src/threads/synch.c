@@ -69,11 +69,6 @@ sema_down (struct semaphore *sema)
   while (sema->value == 0) 
     {
       list_insert_ordered (&sema->waiters, &thread_current ()->elem, (list_less_func *) &thread_cmp_priority, NULL);
-      for (list_elem i = sema->waiters.head; i != sema->waiters.tail; i = i->next){
-        char hehe[100] = {};
-        sprintf(hehe, "%s", list_entry(i, struct thread, elem)->name)
-        msg(hehe);
-      }
       thread_block ();
     }
   sema->value--;
@@ -119,6 +114,7 @@ sema_up (struct semaphore *sema)
 
   old_level = intr_disable ();
   if (!list_empty (&sema->waiters)) {
+    list_sort(&sema->waiters, thread_cmp_priority, NULL);
     thread_unblock (list_entry (list_pop_front (&sema->waiters),
                                 struct thread, elem));
     //thread_yield();
