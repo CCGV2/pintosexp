@@ -127,6 +127,8 @@ struct thread *thread_current (void);
 tid_t thread_tid (void);
 const char *thread_name (void);
 
+bool thread_cmp_priority(const struct list_elem *a, const struct list_elem *b, void *aux UNUSED);
+
 void thread_exit (void) NO_RETURN;
 void thread_yield (void);
 
