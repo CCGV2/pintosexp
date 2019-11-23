@@ -70,7 +70,9 @@ sema_down (struct semaphore *sema)
     {
       list_insert_ordered (&sema->waiters, &thread_current ()->elem, (list_less_func *) &thread_cmp_priority, NULL);
       for (list_elem i = sema->waiters.head; i != sema->waiters.tail; i = i->next){
-        printf("%s", list_entry(i, struct thread, elem)->name);
+        char hehe[100] = {};
+        sprintf(hehe, "%s", list_entry(i, struct thread, elem)->name)
+        msg(hehe);
       }
       thread_block ();
     }
