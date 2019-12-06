@@ -90,6 +90,7 @@ struct thread
     int priority;                       /* Priority. */
     int base_priority;                  /* Basic Priority. */
     struct list locks;
+    struct lock *lock_waiting;
     int64_t ticks_blocked;
     struct list_elem allelem;           /* List element for all threads list. */
 
